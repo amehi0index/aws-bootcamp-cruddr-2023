@@ -9,7 +9,7 @@ See .gitpod.yml file
 
 ### Create Billing Alarm
 
-I created a Billing Alarm in CloudWatch. The Alarm is currently "In Alarm".
+I created a Billing Alarm in CloudWatch. The Alarm has an "In alarm" warning.
 ![Image of CloudWatch Billing Alarm](assets/cloudwatch-billing-alarm.png)
 
 
