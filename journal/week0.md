@@ -3,7 +3,7 @@
 ## Required Homework
 
 ### Install AWS CLI
-See .gitpod.yml file
+![Image of Gitpod YAML FIle](assets/gitpod-yaml.png)
 
 ## Homework Challenges
 
