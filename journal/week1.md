@@ -40,3 +40,10 @@ psql -h localhost -U postgres
 
 ![React Pagefeed for Notifications](assets/postgres.png)
 
+## Stretch Assignments
+
+As a stretch assignment, I pushed and tagged an image to Docker Hub found [here](https://hub.docker.com/repository/docker/amehi4yus/reactquiz/general)
+
+![Docker Hub Image](assets/dockerhub.png)
+
+
