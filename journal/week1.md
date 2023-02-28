@@ -14,14 +14,14 @@
 
 ## Write a Flask Backend Endpoint for Notifications
 
-Code found [here](/blob/main/backend-flask/app.py)
+Code found [here](/backend-flask/app.py)
 
 ![Backend Endpoint for Notifications](assets/backend.png)
 
 
 ## Write a React Page for Notifications
 
-Code found [here](/blob/main/frontend-react-js/src/pages/NotificationsFeedPage.js)
+Code found [here](/frontend-react-js/src/pages/NotificationsFeedPage.js)
 
 ![React Pagefeed for Notifications](assets/react.png)
 
