@@ -14,18 +14,30 @@
 
 ## Write a Flask Backend Endpoint for Notifications
 
+Code found [here](/blob/main/backend-flask/app.py)
+
 ![Backend Endpoint for Notifications](assets/backend.png)
 
 
 ## Write a React Page for Notifications
 
+Code found [here](/blob/main/frontend-react-js/src/pages/NotificationsFeedPage.js)
+
 ![React Pagefeed for Notifications](assets/react.png)
 
-## Run DynamoDB Local Container and ensure it works
+## Run DynamoDB Local Container and ensure it workstable
+
+Create a table from example found [here](https://github.com/100DaysOfCloud/challenge-dynamodb-local)
 
 ![React Pagefeed for Notifications](assets/dynamodb-table.png)
 
 ## Run Postgres Container and ensure it works
+
+From terminal, run the command: 
+```
+psql -h localhost -U postgres
+
+```
 
 ![React Pagefeed for Notifications](assets/postgres.png)
 
