@@ -34,7 +34,8 @@ Create a table from example found [here](https://github.com/100DaysOfCloud/chall
 ## Run Postgres Container and ensure it works
 
 From terminal, run the command: 
-```psql -h localhost -U postgres
+```
+psql -h localhost -U postgres
 ```
 
 ![React Pagefeed for Notifications](assets/postgres.png)
