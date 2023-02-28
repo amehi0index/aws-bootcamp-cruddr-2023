@@ -4,7 +4,6 @@ FROM python:3.10-slim-buster
 #Set working directory within container
 WORKDIR /backend-flask
 
-
 #Outside container(src) -> inside container(dest)
 #contains libs to install to run the app
 COPY requirements.txt requirements.txt
