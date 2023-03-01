@@ -42,8 +42,21 @@ psql -h localhost -U postgres
 
 ## Stretch Assignments
 
+### Push and tag an image to Docker Hub
+
 As a stretch assignment, I pushed and tagged an image to Docker Hub found [here](https://hub.docker.com/repository/docker/amehi4yus/reactquiz/general)
 
 ![Docker Hub Image](assets/dockerhub.png)
+
+### Learn how to install Docker on your localmachine and run the containers
+- Download, install and run Docker Desktop : https://hub.docker.com/
+- Downloaded zip file found [here](https://github.com/amehi0index/aws-bootcamp-cruddr-2023)
+- Deleted meta.json file from path as explained here : 
+	https://stackoverflow.com/questions/74804296/docker-endpoint-for-default-not-found
+- cd into fontend-react-js: npm install 
+- rt click on docker-compose.yml, select Compose Up
+
+![Image of Docker Desktop](assets/docker-desktop.png)
+![Image from local VS Code Terminal](assets/local-docker.png)
 
 
