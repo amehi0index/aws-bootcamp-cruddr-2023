@@ -25,6 +25,7 @@ class UserActivities:
         model['data'] = results
 
       # XRAY------------
+      # Start a new segment
       subsegment = xray_recorder.begin_subsegment('mock-data')
 
     
@@ -33,10 +34,11 @@ class UserActivities:
         "results-size": len(model['data'])
       }
 
+      #Start a subsegment
       subsegment.put_metadata('key', dict, 'namespace')
       xray_recorder.end_subsegment()
 
     finally:  
-    # Close segment
+    # Close the segment
       xray_recorder.end_subsegment()
     return model
