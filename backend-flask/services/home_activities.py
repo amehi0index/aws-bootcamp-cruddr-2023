@@ -58,4 +58,5 @@ class HomeActivities:
       #Create another meaningful attribute for span
       span.set_attribute("app.result_length", len(results))
       return results
+     # results -----> intentional error for rollbar log
    
