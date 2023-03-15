@@ -6,12 +6,21 @@ import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Auth } from 'aws-amplify';
 
 export default function ConfirmationPage() {
-  const [email, setEmail] = React.useState('');
+  
+  const params = useParams();
+
+  if(params.email){
+    console.log(params.email)
+  }else{
+    console.log(params)
+  }
+ 
+
+  const [email, setEmail] = React.useState(params.email);
   const [code, setCode] = React.useState('');
   const [errors, setErrors] = React.useState('');
   const [codeSent, setCodeSent] = React.useState(false);
 
-  const params = useParams();
 
   const code_onchange = (event) => {
     setCode(event.target.value);
@@ -44,12 +53,30 @@ export default function ConfirmationPage() {
     setErrors('')
     try {
       await Auth.confirmSignUp(email, code);
+      //Should check user --> sign user in here
+      //await Auth.signIn(email, password)
+      //checkUser()
       window.location.href = "/"
     } catch (error) {
       setErrors(error.message)
     }
     return false
   }
+
+//   async function checkUser(){
+//     try {
+//       const user = await Auth.currentAuthenticatedUser()
+//       const { email, nickname } = user.attributes
+//       setUser(()=> nickname ? nickname : email)
+//       await Auth.currentAuthenticatedUser()
+      
+//       console.log(({ user }))
+//     } catch (error) {
+//        setUser(null)
+//        setUiState('signIn')
+//     }
+// }
+
 
   let el_errors;
   if (errors){

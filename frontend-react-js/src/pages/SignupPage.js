@@ -30,6 +30,8 @@ export default function SignupPage() {
           }
         });
         console.log(user);
+        //use react router useNavigate --> pass email as state?
+        //useLocation to grab email in confirmation page --> prefill email input 
         window.location.href = `/confirm?email=${email}`
     } catch (error) {
         console.log(error);
