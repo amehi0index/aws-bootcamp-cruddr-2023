@@ -7,7 +7,7 @@ tracer = trace.get_tracer("home.activities")
 class HomeActivities:
   # def run(logger):
   #   logger.info("HomeActivities")
-  def run():
+  def run(cognito_user_id=None):
     # Create span, name span that will appear in list of stories
     with tracer.start_as_current_span("home-activities-mock-data"):
       #Set span attribute
@@ -55,8 +55,21 @@ class HomeActivities:
         'replies': []
       }
       ]
-      #Create another meaningful attribute for span
-      span.set_attribute("app.result_length", len(results))
-      return results
+
+      if cognito_user_id != None:
+        extra_crud = {
+          'uuid': '248959df-3079-4947-b847-9e0892d1bab4',
+          'handle':  'Geralt',
+          'message': 'Keep the gods out of it...',
+          'created_at': (now - timedelta(hours=1)).isoformat(),
+          'expires_at': (now + timedelta(hours=12)).isoformat(),
+          'likes': 1111,
+          'replies': []
+        }
+        results.insert(0, extra_crud)
+    
+    #Create another meaningful attribute for span
+    span.set_attribute("app.result_length", len(results))
+    return results
      # results -----> intentional error for rollbar log
    

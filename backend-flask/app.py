@@ -185,13 +185,12 @@ def data_home():
     app.logger.debug("Authenticated:")
     app.logger.debug(claims)
     app.logger.debug(claims['username'])
- 
+    data = HomeActivities.run(cognito_user_id=claims['username'])
   except TokenVerifyError as e:
     # Unauthenticated request
     app.logger.debug(e)
     app.logger.debug("Unauthenticated:")
-  data = HomeActivities.run()
-
+    data = HomeActivities.run()
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
