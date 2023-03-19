@@ -1,26 +1,24 @@
 import './ConfirmationPage.css';
 import React from "react";
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 
 import { Auth } from 'aws-amplify';
 
 export default function ConfirmationPage() {
-  
-  const params = useParams();
 
-  if(params.email){
-    console.log(params.email)
-  }else{
-    console.log(params)
-  }
- 
+  const location = useLocation();
 
-  const [email, setEmail] = React.useState(params.email);
+  const [email, setEmail] = React.useState('');
   const [code, setCode] = React.useState('');
   const [errors, setErrors] = React.useState('');
   const [codeSent, setCodeSent] = React.useState(false);
 
+  React.useEffect(()=>{
+    if (location.state.email) {
+      setEmail(location.state.email)
+    }
+  }, [])
 
   const code_onchange = (event) => {
     setCode(event.target.value);
@@ -90,12 +88,6 @@ export default function ConfirmationPage() {
   } else {
     code_button = <button className="resend" onClick={resend_code}>Resend Activation Code</button>;
   }
-
-  React.useEffect(()=>{
-    if (params.email) {
-      setEmail(params.email)
-    }
-  }, [])
 
   return (
     <article className="confirm-article">

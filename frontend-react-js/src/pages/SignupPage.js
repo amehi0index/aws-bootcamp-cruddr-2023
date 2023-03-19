@@ -4,9 +4,13 @@ import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 
+import {useNavigate} from 'react-router-dom';
+
 export default function SignupPage() {
 
-  // Username is Eamil
+  const navigate = useNavigate();
+
+  // Username is Email
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
@@ -30,9 +34,15 @@ export default function SignupPage() {
           }
         });
         console.log(user);
-        //use react router useNavigate --> pass email as state?
         //useLocation to grab email in confirmation page --> prefill email input 
-        window.location.href = `/confirm?email=${email}`
+
+        navigate(`/confirm?email=${email}`, {
+          state: {
+            email
+          }
+        })
+      
+        // window.location.href = `/confirm?email=${email}`
     } catch (error) {
         console.log(error);
         setErrors(error.message)
