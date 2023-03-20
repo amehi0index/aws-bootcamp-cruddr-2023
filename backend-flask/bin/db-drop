@@ -1,6 +1,10 @@
 #!/usr/bin/bash
 
-echo "db-drop"
+RED='\033[1;31m'
+NO_COLOR='\033[0m'
+LABEL="db-drop"
+printf "${RED}== ${LABEL}${NO_COLOR}\n"
+
 # sed -> stream editor, edit file w/o opening, sub/replace/delete 
 # CONNECTION_URL -> postgresql://[user[:password]@][netloc][:port][/dbname]
 NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
