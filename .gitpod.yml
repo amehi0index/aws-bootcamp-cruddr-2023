@@ -37,3 +37,6 @@ ports:
   - name: xray-daemon
     port: 2000
     visibility: public
+  - name: postgres
+    port: 5432
+    visibility: public

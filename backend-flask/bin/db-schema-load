@@ -1,1 +1,21 @@
 #!/usr/bin/bash
+
+#echo "== db-schema-load"
+PURPLE='\033[1;35m'
+NO_COLOR='\033[0m'
+LABEL="db-schema-load"
+printf "${PURPLE}== ${LABEL}${NO_COLOR}\n"
+
+#file is one directory up
+#absolute path -> /workspace/aws-bootcamp-cruddr-2023/db/schema.sql
+schema_path="$(realpath .)/db/schema.sql"
+echo $schema_path
+
+if [ "$1" = "prod" ]; then
+  echo "Using Production"
+  CON_URL=$PROD_CONNECTION_URL
+else
+  CON_URL=$CONNECTION_URL
+fi
+
+psql $CON_URL cruddur < $schema_path   #db/schema.sql
