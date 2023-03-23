@@ -51,29 +51,15 @@ export default function ConfirmationPage() {
     setErrors('')
     try {
       await Auth.confirmSignUp(email, code);
-      //Should check user --> sign user in here
-      //await Auth.signIn(email, password)
-      //checkUser()
       window.location.href = "/"
+      //signin Auth
+      //verify current auth user
+      //redirect user to homefeed
     } catch (error) {
       setErrors(error.message)
     }
     return false
   }
-
-//   async function checkUser(){
-//     try {
-//       const user = await Auth.currentAuthenticatedUser()
-//       const { email, nickname } = user.attributes
-//       setUser(()=> nickname ? nickname : email)
-//       await Auth.currentAuthenticatedUser()
-      
-//       console.log(({ user }))
-//     } catch (error) {
-//        setUser(null)
-//        setUiState('signIn')
-//     }
-// }
 
 
   let el_errors;
