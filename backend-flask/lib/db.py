@@ -2,6 +2,7 @@ from psycopg_pool import ConnectionPool
 import os  #for env variables
 import sys
 import re
+from flask import current_app as app
 
 class Db:
 
@@ -9,25 +10,33 @@ class Db:
     self.init_pool()
 
   def template(self, *args):
+
+    pathing = list((app.root_path,'db','sql',) + args)
+    pathing[-1] = pathing[-1] + ".sql"
+
+    template_path = os.path.join(*pathing)
+
     with open(template_path, 'r') as f:
       template_content = f.read()
+    return template_content
+
 
 
   def init_pool(self):
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
 
-  def print_sql(self, sql):
+  def print_sql(self, title, sql):
     cyan = '\033[96m'
     no_color = '\033[0m'
+    print("\n")
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
-    print(sql)
+    print(sql + "\n")
 
   #when we want to commit data such as an insert
   #Check for RETURNING in all CAPS
   def query_commit(self, sql, *params):
-    print("SQL STATEMENT [commit with returning id]")
-    print(sql + "\n")
+    self.print_sql('commit with returning sql', sql)
 
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
@@ -43,9 +52,6 @@ class Db:
           return returning_id
     except Exception as err:
           self.print_sql_err(err)
-
-
-   
 
   # when we want to return a json object
   def query_array_json(self,sql):

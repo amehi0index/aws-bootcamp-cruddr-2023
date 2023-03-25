@@ -47,7 +47,7 @@ class CreateActivity:
       CreateActivity.create_activity(user_handle, message, expires_at)
       model['data'] = {
         'uuid': uuid.uuid4(),
-        'display_name': 'Andrew Brown',
+        'display_name': 'Ame Hi',
         'handle':  user_handle,
         'message': message,
         'created_at': now.isoformat(),
@@ -56,7 +56,7 @@ class CreateActivity:
     return model
 
   def create_activity(handle, message, expires_at):
-    sql =  template('create_activity')
+    sql =  db.template('create_activity')
 
     uuid = db.query_commit(sql,{
       "handle": handle,
