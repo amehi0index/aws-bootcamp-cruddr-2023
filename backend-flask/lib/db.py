@@ -40,6 +40,7 @@ class Db:
     no_color = '\033[0m'
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
     print(sql,params)
+
   def query_commit(self,sql,params={}):
     self.print_sql('commit with returning',sql,params)
 
@@ -49,7 +50,7 @@ class Db:
     try:
       with self.pool.connection() as conn:
         cur =  conn.cursor()
-        cur.execute(sql,params)
+        cur.execute(sql,*params)
         if is_returning_id:
           returning_id = cur.fetchone()[0]
         conn.commit() 
@@ -57,6 +58,7 @@ class Db:
           return returning_id
     except Exception as err:
       self.print_sql_err(err)
+
   # when we want to return a json object
   def query_array_json(self,sql,params={}):
     self.print_sql('array',sql,params)
@@ -67,6 +69,7 @@ class Db:
         cur.execute(wrapped_sql,params)
         json = cur.fetchone()
         return json[0]
+
   # When we want to return an array of json objects
   def query_object_json(self,sql,params={}):
 
@@ -82,6 +85,7 @@ class Db:
           "{}"
         else:
           return json[0]
+
   def query_value(self,sql,params={}):
     self.print_sql('value',sql,params)
     with self.pool.connection() as conn:
@@ -89,6 +93,7 @@ class Db:
         cur.execute(sql,params)
         json = cur.fetchone()
         return json[0]
+
   def query_wrap_object(self,template):
     sql = f"""
     (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
@@ -96,6 +101,7 @@ class Db:
     ) object_row);
     """
     return sql
+
   def query_wrap_array(self,template):
     sql = f"""
     (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
@@ -103,6 +109,7 @@ class Db:
     ) array_row);
     """
     return sql
+
   def print_sql_err(self,err):
     # get details about the exception
     err_type, err_obj, traceback = sys.exc_info()

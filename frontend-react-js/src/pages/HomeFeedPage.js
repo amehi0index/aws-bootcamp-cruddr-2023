@@ -71,10 +71,11 @@ const checkAuth = async () => {
     <article>
       <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
       <div className='content'>
-        <ActivityForm  
+        <ActivityForm
+          user_handle={user}
           popped={popped}
-          setPopped={setPopped} 
-          setActivities={setActivities} 
+          setPopped={setPopped}
+          setActivities={setActivities}
         />
         <ReplyForm 
           activity={replyActivity} 
