@@ -28,6 +28,7 @@ class Db:
     self.pool = ConnectionPool(connection_url)
   # we want to commit data such as an insert
   # be sure to check for RETURNING in all uppercases
+
   def print_params(self,params):
     blue = '\033[94m'
     no_color = '\033[0m'
@@ -35,14 +36,15 @@ class Db:
     for key, value in params.items():
       print(key, ":", value)
 
-  def print_sql(self,title,sql,params={}):
+  def print_sql(self,title,sql):
     cyan = '\033[96m'
     no_color = '\033[0m'
-    print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
-    print(sql,params)
+    print("\n")
+    print(f'{cyan}SQL STATEMENT-[{title}]------{no_color}')
+    print(sql + "\n")
 
   def query_commit(self,sql,params={}):
-    self.print_sql('commit with returning',sql,params)
+    self.print_sql('commit with returning',sql)
 
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
@@ -50,7 +52,7 @@ class Db:
     try:
       with self.pool.connection() as conn:
         cur =  conn.cursor()
-        cur.execute(sql,*params)
+        cur.execute(sql,params)
         if is_returning_id:
           returning_id = cur.fetchone()[0]
         conn.commit() 
@@ -61,7 +63,7 @@ class Db:
 
   # when we want to return a json object
   def query_array_json(self,sql,params={}):
-    self.print_sql('array',sql,params)
+    self.print_sql('array',sql)
 
     wrapped_sql = self.query_wrap_array(sql)
     with self.pool.connection() as conn:
@@ -73,7 +75,7 @@ class Db:
   # When we want to return an array of json objects
   def query_object_json(self,sql,params={}):
 
-    self.print_sql('json',sql,params)
+    # self.print_sql('json',sql,params)
     self.print_params(params)
     wrapped_sql = self.query_wrap_object(sql)
 
