@@ -13,82 +13,38 @@ if len(sys.argv) == 2: #sys.argv ~ schema prod
 
 
 
-dynamodb = boto3.client('dynamodb', **attrs )
+ddb = boto3.client('dynamodb', **attrs )
 table_name = 'cruddur-message'
 
-response = client.create_table(
+response = ddb.create_table(
     TableName=table_name,
     AttributeDefinitions=[
         {
-            'AttributeName': 'pk',
+            'AttributeName': 'pk', #psrtition key
             'AttributeType': 'S'   #str
         },
+         {
+            'AttributeName': 'sk', #secondary key
+            'AttributeType': 'S'   #str
+        }
     ],
-
     KeySchema=[
         {
-            'AttributeName': 'string',
-            'KeyType': 'HASH'|'RANGE'
+            'AttributeName': 'pk',
+            'KeyType': 'HASH'
         },
-    ],
-    LocalSecondaryIndexes=[
         {
-            'IndexName': 'string',
-            'KeySchema': [
-                {
-                    'AttributeName': 'string',
-                    'KeyType': 'HASH'|'RANGE'
-                },
-            ],
-            'Projection': {
-                'ProjectionType': 'ALL'|'KEYS_ONLY'|'INCLUDE',
-                'NonKeyAttributes': [
-                    'string',
-                ]
-            }
+            'AttributeName': 'sk',
+            'KeyType': 'RANGE'
         },
     ],
-    GlobalSecondaryIndexes=[
-        {
-            'IndexName': 'string',
-            'KeySchema': [
-                {
-                    'AttributeName': 'string',
-                    'KeyType': 'HASH'|'RANGE'
-                },
-            ],
-            'Projection': {
-                'ProjectionType': 'ALL'|'KEYS_ONLY'|'INCLUDE',
-                'NonKeyAttributes': [
-                    'string',
-                ]
-            },
-            'ProvisionedThroughput': {
-                'ReadCapacityUnits': 123,
-                'WriteCapacityUnits': 123
-            }
-        },
-    ],
-    BillingMode='PROVISIONED'|'PAY_PER_REQUEST',
+    # GlobalSecondaryIndexes=[
+    # ],
+    BillingMode='PROVISIONED', #free tier
     ProvisionedThroughput={
-        'ReadCapacityUnits': 123,
-        'WriteCapacityUnits': 123
-    },
-    StreamSpecification={
-        'StreamEnabled': True|False,
-        'StreamViewType': 'NEW_IMAGE'|'OLD_IMAGE'|'NEW_AND_OLD_IMAGES'|'KEYS_ONLY'
-    },
-    SSESpecification={
-        'Enabled': True|False,
-        'SSEType': 'AES256'|'KMS',
-        'KMSMasterKeyId': 'string'
-    },
-    Tags=[
-        {
-            'Key': 'string',
-            'Value': 'string'
-        },
-    ],
-    TableClass='STANDARD'|'STANDARD_INFREQUENT_ACCESS',
-    DeletionProtectionEnabled=True|False
+        'ReadCapacityUnits': 5,
+        'WriteCapacityUnits': 5
+    }
 )
+
+print(response)
