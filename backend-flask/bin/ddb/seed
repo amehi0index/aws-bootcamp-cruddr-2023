@@ -21,6 +21,37 @@ if len(sys.argv) == 2:
     attrs = {}
 dynamodb = boto3.client('dynamodb',**attrs)
 
+sql = """
+  SELECT 
+    users.uuid,
+    users.display_name,
+    users.handle
+  FROM users
+  WHERE
+    users.handle IN(
+      %(my_handle)s,
+      %(other_handle)s
+      )
+"""
+
+users = db.query_array_json(sql,{
+  'my_handle':  'amehi',
+  'other_handle': 'sami'
+})
+
+my_user    = next((item for item in users if item["handle"] == 'amehi'), None)
+other_user = next((item for item in users if item["handle"] == 'sami'), None)
+results = {
+    'my_user': my_user,
+    'other_user': other_user
+  }
+print('get_user_uuids')
+print(results)
+
+
+
+print("User====")
+print(users)
 
 now = datetime.now(timezone.utc).astimezone()
 
