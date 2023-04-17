@@ -19,7 +19,7 @@ attrs = {
 if len(sys.argv) == 2:
   if "prod" in sys.argv[1]:
     attrs = {}
-dynamodb = boto3.client('dynamodb',**attrs)
+ddb = boto3.client('dynamodb',**attrs)
 
 def get_user_uuids():
   sql = """
@@ -93,6 +93,28 @@ print("User====")
 print(users)
 
 now = datetime.now(timezone.utc).astimezone()
+
+create_message_group(
+  client=ddb,
+  message_group_uuid=message_group_uuid,
+  my_user_uuid=users['my_user']['uuid'],
+  other_user_uuid=users['other_user']['uuid'],
+  other_user_handle=users['other_user']['handle'],
+  other_user_display_name=users['other_user']['display_name'],
+  last_message_at=now.isoformat(),
+  message="this is a filler message"
+)
+
+create_message_group(
+  client=ddb,
+  message_group_uuid=message_group_uuid,
+  my_user_uuid=users['other_user']['uuid'],
+  other_user_uuid=users['my_user']['uuid'],
+  other_user_handle=users['my_user']['handle'],
+  other_user_display_name=users['my_user']['display_name'],
+  last_message_at=now.isoformat(),
+  message="this is a filler message"
+)
 
 conversation = """
 Person 1: Have you ever watched Babylon 5? It's one of my favorite TV shows!
@@ -215,7 +237,7 @@ for i in range(len(lines)):
 
 created_at = (now + timedelta(minutes=i)).isoformat()
 create_message(
-    client=dynamodb,
+    client=ddb,
     message_group_uuid= message_group_uuid,
     created_at=created_at,
     message=message,
