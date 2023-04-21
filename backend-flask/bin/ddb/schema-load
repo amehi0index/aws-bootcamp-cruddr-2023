@@ -20,7 +20,7 @@ response = ddb.create_table(
     TableName=table_name,
     AttributeDefinitions=[
         {
-            'AttributeName': 'pk', #psrtition key
+            'AttributeName': 'pk', #partition key
             'AttributeType': 'S'   #str
         },
          {
