@@ -14,7 +14,7 @@ if len(sys.argv) == 2: #sys.argv ~ schema prod
 
 
 ddb = boto3.client('dynamodb', **attrs )
-table_name = 'cruddur-message'
+table_name = 'cruddur-messages'
 
 response = ddb.create_table(
     TableName=table_name,
